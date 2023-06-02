@@ -9,12 +9,18 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://fastapi-juandavid1217.cloud.okteto.net',
+    'http://fastapi-juandavid1217.cloud.okteto.net'
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=['*'],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 app.include_router(general_route.router)

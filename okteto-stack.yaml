@@ -1,7 +1,7 @@
 services:
   fastapi:
     public: true
-    image: juandavid1217/fastapi:1.1
+    image: juandavid1217/fastapi:1.2
     build: .
     replicas: 1
     ports:
