@@ -47,7 +47,9 @@ def delete_user(db: Session, user_id:int):
 
 
 def get_user_by_UP(db: Session, user_name: str, password: str):
-    db_usuario = db.query(Usuario).filter(Usuario.usuario==user_name and desencrypt(bytes(Usuario.password))==password).first()
-    if not db_usuario:
+    #db_usuario = db.query(Usuario).filter(Usuario.usuario==user_name and (desencrypt(bytes(Usuario.password))==password)).first()
+    db_usuario = db.query(Usuario).filter_by(usuario=user_name).first()
+    if db_usuario!=None and desencrypt(db_usuario.password)==password:
+        return db_usuario
+    else:
         raise HTTPException(status_code=404, detail="User or password are incorrect")
-    return db_usuario

@@ -1,0 +1,11 @@
+services:
+  fastapi:
+    public: true
+    image: juandavid1217/fastapi:1.1
+    build: .
+    replicas: 1
+    ports:
+      - 8000
+    resources:
+      cpu: 1000m
+      memory: 128Mi
