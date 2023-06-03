@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 #-----Acciones a realizar sobre grupos------#
-@router.post("/Grupo", response_model=Grupo)
+@router.post("/Grupo/", response_model=Grupo)
 def create_grupo(grupo: GrupoCreate, db: Session = Depends(get_db)):
     return crud.create_group(db=db, grupo=grupo)
 
@@ -26,7 +26,7 @@ def delete_grupo(grupo_id: int, db: Session = Depends(get_db)):
 
 #------Acciones sobre almacenamientos------#
 
-@router.post("/Almacenamiento", response_model=Almacenamiento)
+@router.post("/Almacenamiento/", response_model=Almacenamiento)
 def add_almacenamiento(almacenamiento: AlmacenamientoCreate, db: Session = Depends(get_db)):
     return crud.add_almacenamiento(db=db, almacenamiento=almacenamiento)
 
@@ -46,7 +46,7 @@ def get_almacenamientosbyGroup(grupo_id: int, db: Session = Depends(get_db)):
 def get_almacenamiento_byID(almacenamiento_id: int, db: Session = Depends(get_db)):
     return crud.get_almacenamiento_byID(db=db, almacenamiento_id=almacenamiento_id)
 
-@router.post("/Almacenamiento/IoT", response_model=IoT)
+@router.post("/Almacenamiento/IoT/", response_model=IoT)
 def add_dispoIoT(dispo: IoTCreate, db: Session =  Depends(get_db)):
     return crud.vincular_IoT(db=db, dispo=dispo)
 
