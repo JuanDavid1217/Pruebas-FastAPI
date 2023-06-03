@@ -12,7 +12,7 @@ database_user = config['DEFAULT']['DB_USER']
 IP = config['DEFAULT']['IP']
 PORT = config['DEFAULT']['PORT']
 
-SQLALCHEMY_DATABASE_URL = {url_database}
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{database_user}:{database_password}@{IP}:{PORT}/{database_name}"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 engine = create_engine(
