@@ -20,6 +20,9 @@ jobs:
         run: |
           cat .env 
           
+      - name: asignar url de conexion al codigo
+        run: sed -i 's/{url_database}/${{secrets.URL_DATABASE}}/g' app-agua/database.py
+        
       - name: Build the custom Docker image
         run: docker build -t ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAME}}:${{github.sha}} .
 
