@@ -142,6 +142,7 @@ class GrupoCreate(GrupoBase):
     id_usuario: int | None = None
 
 class Grupo(GrupoBase):
+    id_usuario: int | None = None
     id_grupo: int | None = None
     vinculacion: Vinculacion_Grupo | None = None
     almacenamientos: list[Almacenamiento] | None = None

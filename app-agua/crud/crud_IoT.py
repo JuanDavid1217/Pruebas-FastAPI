@@ -52,3 +52,39 @@ def save_salidaAgua(db: Session, salidaAgua: Salida_AguaVin):
         return jsonable_encoder(db_salida)
     else:
         raise HTTPException(status_code=404, detail="Dispositivo IoT NO VINCULADO")
+
+#Creo esta pendiente
+def get_Entradabydate(db: Session, almacenamiento_id: int, fech_inicio: str, fech_fin: str):
+    cEntrada=0
+    cSalida=0
+    if fech_inicio<=fech_fin:
+        id_vinculacion=db.query(IoT.id_vin_IoT).filter_by(id_almacenamiento=almacenamiento_id).first()
+        if id_vinculacion:
+            id_vinculacion=id_vinculacion[0]
+            db_entrada = db.query(Entrada_Agua).filter(Entrada_Agua.id_vin_IoT==id_vinculacion and
+            Entrada_Agua.Fecha_Hora.between(fech_inicio, fech_fin)).all()
+            db_salida = db.query(Salida_Agua).filter(Salida_Agua.id_vin_IoT==id_vinculacion and
+            Salida_Agua.Fecha_Hora.between(fech_inicio, fech_fin)).all()
+
+            for i in range(len(db_entrada)):
+                db_entrada[i]=jsonable_encoder(db_entrada[i])
+                cEntrada+=db_entrada[i]['cantidad_entrada']
+            
+            for i in range(len(db_salida)):
+                db_salida[i]=jsonable_encoder(db_salida[i])
+                cSalida+=db_salida[i]['cantidad_salida']
+            
+            """for e in db_entrada:
+                cEntrada+=e.cantidad_entrada
+            for s in db_salida:
+                cSalida+=s.cantidad_salida"""
+            
+            data={'entradas': db_entrada,
+                  'salidas': db_salida,
+                  'TotalE': cEntrada,
+                  'TotalS': cSalida}
+            return data
+        else:
+            raise HTTPException(status_code=404, detail="Water tank don´t have any IoT")
+    else:
+        raise HTTPException(status_code=303, detail="Dates are wrong")
