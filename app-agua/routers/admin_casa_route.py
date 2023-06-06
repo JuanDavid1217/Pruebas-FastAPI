@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from .session_file import get_db
-from schemas.fileschemas import GrupoCreate, Grupo, GrupoBase, Almacenamiento, AlmacenamientoCreate, IoT, IoTCreate
+from schemas.fileschemas import GrupoCreate, Grupo, GrupoBase, Almacenamiento, AlmacenamientoCreate, IoT, IoTCreate, Usuario
 from crud import crud_generalUsers as crud
 
 router = APIRouter(
@@ -50,3 +50,6 @@ def get_almacenamiento_byID(almacenamiento_id: int, db: Session = Depends(get_db
 def add_dispoIoT(dispo: IoTCreate, db: Session =  Depends(get_db)):
     return crud.vincular_IoT(db=db, dispo=dispo)
 
+@router.get("/{id_almacenamiento}")
+def getIdUserbyIDAlma(id_almacenamiento: int, db: Session = Depends(get_db)):
+    return crud.get_User_by_IDAlma(db=db, id_alma=id_almacenamiento)

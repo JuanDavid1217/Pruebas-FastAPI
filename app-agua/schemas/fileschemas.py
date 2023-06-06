@@ -128,6 +128,7 @@ class AlmacenamientoCreate(AlmacenamientoBase):
 class Almacenamiento(AlmacenamientoBase):
     id_almacenamiento: int | None = None
     dispo_IoT: IoT | None = None
+    id_grupo: int | None = None 
 
     class Config:
         orm_mode = True

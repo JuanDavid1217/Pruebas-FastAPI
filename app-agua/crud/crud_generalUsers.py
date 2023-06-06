@@ -139,5 +139,14 @@ def vincular_IoT(db:Session, dispo:IoTCreate):
     else:
         raise HTTPException(status_code=404, detail="Almacenamiento not found")
 
+
+def get_User_by_IDAlma(db:Session, id_alma:int):
+    id_grupo=db.query(Almacenamiento.id_grupo).filter_by(id_almacenamiento=id_alma).first()
+    if(id_grupo):
+        id_user=db.query(Grupo.id_usuario).filter_by(id_grupo=id_grupo[0]).first()
+        return {'id_usuario': id_user[0]}
+    else:
+        raise HTTPException(status_code=404, detail="Almacenamiento not found")
+    
         
 

@@ -66,3 +66,10 @@ def get_user_by_UP(db: Session, user_name: str, password: str):
         return db_usuario
     else:
         raise HTTPException(status_code=404, detail="User or password are incorrect")
+
+def get_user_by_id(db:Session, id_usuario:int):
+    db_usuario=db.query(Usuario).filter_by(id_usuario=id_usuario).first()
+    if db_usuario:
+        return db_usuario
+    else:
+        raise HTTPException(status_code=404, detail="User not found")

@@ -27,3 +27,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 @router.get("/{user_name}/{password}", response_model=schemas.Usuario)
 def access_acount(user_name: str, password: str, db: Session = Depends(get_db)):
     return crud.get_user_by_UP(db=db, user_name=user_name, password=password)
+
+@router.get("/{id_usuario}", response_model=schemas.Usuario)
+def access_accout_byID(id_usuario: int, db: Session = Depends(get_db)):
+    return crud.get_user_by_id(db=db, id_usuario=id_usuario)
