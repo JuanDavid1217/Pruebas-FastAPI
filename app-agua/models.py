@@ -88,7 +88,7 @@ class IoT(Base):
 
     id_vin_IoT: Mapped[Optional[int]] = mapped_column(BIGINT, primary_key=True)
     id_almacenamiento: Mapped[int] = mapped_column(BIGINT, ForeignKey("almacenamientos.id_almacenamiento"))
-    dispo_IoT: Mapped[str] = mapped_column(String(20))
+    dispo_IoT: Mapped[str] = mapped_column(String(50))
 
     almacenamiento: Mapped["Almacenamiento"] = relationship(back_populates="dispo_IoT")
     variables: Mapped[List["Recepcion_Datos"]] = relationship(back_populates="dispositivo", cascade="all, delete-orphan")

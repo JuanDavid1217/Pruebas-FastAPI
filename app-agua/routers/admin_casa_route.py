@@ -23,7 +23,11 @@ def update_grupo(grupo_id: int, grupo: GrupoBase, db: Session = Depends(get_db))
 def delete_grupo(grupo_id: int, db: Session = Depends(get_db)):
     return crud.delete_group(db=db, grupo_id=grupo_id)
 
+@router.get("/Grupo/{grupo_id}")
+def getNamesUserGruop(grupo_id: int, db: Session = Depends(get_db)):
+    return crud.getNamesUserGruop(db=db, grupo_id=grupo_id)
 
+    
 #------Acciones sobre almacenamientos------#
 
 @router.post("/Almacenamiento/", response_model=Almacenamiento)
@@ -49,6 +53,10 @@ def get_almacenamiento_byID(almacenamiento_id: int, db: Session = Depends(get_db
 @router.post("/Almacenamiento/IoT/", response_model=IoT)
 def add_dispoIoT(dispo: IoTCreate, db: Session =  Depends(get_db)):
     return crud.vincular_IoT(db=db, dispo=dispo)
+
+@router.get("/Almacenamiento/IoT/{almacenamiento_id}", response_model=IoT)
+def get_IoTName(almacenamiento_id: int, db: Session = Depends(get_db)):
+    return crud.get_IoTName(db=db, id_almacenamiento=almacenamiento_id)
 
 @router.get("/{id_almacenamiento}")
 def getIdUserbyIDAlma(id_almacenamiento: int, db: Session = Depends(get_db)):

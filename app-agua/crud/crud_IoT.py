@@ -57,14 +57,13 @@ def save_salidaAgua(db: Session, salidaAgua: Salida_AguaVin):
 def get_Entradabydate(db: Session, almacenamiento_id: int, fech_inicio: str, fech_fin: str):
     cEntrada=0
     cSalida=0
+    fin=" 23:59:59"
     if fech_inicio<=fech_fin:
         id_vinculacion=db.query(IoT.id_vin_IoT).filter_by(id_almacenamiento=almacenamiento_id).first()
         if id_vinculacion:
             id_vinculacion=id_vinculacion[0]
-            db_entrada = db.query(Entrada_Agua).filter(Entrada_Agua.id_vin_IoT==id_vinculacion and
-            Entrada_Agua.Fecha_Hora.between(fech_inicio, fech_fin)).all()
-            db_salida = db.query(Salida_Agua).filter(Salida_Agua.id_vin_IoT==id_vinculacion and
-            Salida_Agua.Fecha_Hora.between(fech_inicio, fech_fin)).all()
+            db_entrada = db.query(Entrada_Agua).filter(Entrada_Agua.id_vin_IoT==id_vinculacion, Entrada_Agua.Fecha_Hora.between(fech_inicio, fech_fin+fin)).all()
+            db_salida = db.query(Salida_Agua).filter(Salida_Agua.id_vin_IoT==id_vinculacion, Salida_Agua.Fecha_Hora.between(fech_inicio, fech_fin+fin)).all()
 
             for i in range(len(db_entrada)):
                 db_entrada[i]=jsonable_encoder(db_entrada[i])
